@@ -1,5 +1,13 @@
 grammar FiveStar;
 
+// assignment 
+assignment:
+ID (ASSIGN | ADD_ASSIGN | MINUS_ASSIGN | MUL_ASSIGN | OVER_ASSIGN) expression ;
+
+// list
+list:
+'[' (expression (',' expression)*)? (',')? ']'; //trailing commas allowed
+
 
 //tokens
 ID      : [a-zA-Z_][a-zA-Z_0-9]* ;
