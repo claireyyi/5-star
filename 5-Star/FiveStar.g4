@@ -2,7 +2,7 @@ grammar FiveStar;
 
 // assignment 
 assignment:
-ID (ASSIGN | ADD_ASSIGN | MINUS_ASSIGN | MUL_ASSIGN | OVER_ASSIGN) expression ;
+ID (ASSIGN | ADD_ASSIGN | MINUS_ASSIGN | MUL_ASSIGN | DIV_ASSIGN) expression ;
 
 // list
 list:
@@ -19,7 +19,7 @@ BOOLEAN : 'True' | 'False' ;
 //assignment operators
 ASSIGN      : '=' ;
 ADD_ASSIGN  : '+=' ;
-SUB_ASSIGN  : '-=' ;
+MINUS_ASSIGN  : '-=' ;
 MUL_ASSIGN  : '*=' ;
 DIV_ASSIGN  : '/=' ;
 
@@ -27,7 +27,7 @@ DIV_ASSIGN  : '/=' ;
 PLUS  : '+' ;
 MINUS : '-' ;
 TIMES : '*' ;
-OVER  : '/' ;
+DIV  : '/' ;
 MOD   : '%' ;
 
 //whitespace ignored
