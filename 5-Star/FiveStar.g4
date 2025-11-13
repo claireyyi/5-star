@@ -23,6 +23,14 @@ expression: expression (TIMES | MOD| OVER) expression |
             (PLUS | MINUS)? value | 
             ID | BOOLEAN | STRING | list | '(' expression ')';
 
+value //defines all types of atomic values
+: INTEGER
+ | DOUBLE
+ | STRING
+ | BOOLEAN
+ | ID
+ | list
+ ;
 
 //tokens
 INTEGER : [0-9]+ ;
