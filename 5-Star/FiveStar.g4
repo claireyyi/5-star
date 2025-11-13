@@ -1,6 +1,6 @@
 grammar FiveStar;
 
-<<<<<<< HEAD
+
 //Python-specific tokens
 NEWLINE: '\r'? '\n' -> skip;
 COMMENT: '#' ~[\r\n]* -> skip;
@@ -22,8 +22,7 @@ expression: expression (TIMES | MOD| OVER) expression |
             expression (PLUS | MINUS) expression | 
             (PLUS | MINUS)? value | 
             ID | BOOLEAN | STRING | list | '(' expression ')';
-=======
->>>>>>> 0e567ad (Added statement and value)
+
 
 //tokens
 INTEGER : [0-9]+ ;
@@ -35,11 +34,8 @@ ID      : [a-zA-Z_][a-zA-Z_0-9]* ;
 //assignment operators
 ASSIGN      : '=' ;
 ADD_ASSIGN  : '+=' ;
-<<<<<<< HEAD
 MINUS_ASSIGN  : '-=' ;
-=======
 SUB_ASSIGN  : '-=' ;
->>>>>>> 0e567ad (Added statement and value)
 MUL_ASSIGN  : '*=' ;
 DIV_ASSIGN  : '/=' ;
 
@@ -47,16 +43,12 @@ DIV_ASSIGN  : '/=' ;
 PLUS  : '+' ;
 MINUS : '-' ;
 TIMES : '*' ;
-<<<<<<< HEAD
-DIV  : '/' ;
 MOD   : '%' ;
-
-=======
 OVER  : '/' ;
-MOD   : '%' ;
+
 
 //whitespace ignored
 WS     : [ \t]+ -> skip ;
 NEWLINE: [\r\n]+ ;
->>>>>>> 0e567ad (Added statement and value)
+
 
