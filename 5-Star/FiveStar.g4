@@ -20,8 +20,8 @@ list:
 
 expression: expression (TIMES | MOD| OVER) expression |
             expression (PLUS | MINUS) expression | 
-            (PLUS | MINUS)? value | 
-            ID | BOOLEAN | STRING | list | '(' expression ')';
+            (PLUS | MINUS)? value | '(' expression ')' |
+            ID | BOOLEAN | STRING | list;
 
 value //defines all types of atomic values
 : INTEGER
