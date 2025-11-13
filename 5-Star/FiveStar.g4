@@ -23,11 +23,11 @@ expression: expression (TIMES | MOD| OVER) expression |
             ID | BOOLEAN | STRING | list | '(' expression ')';
 
 //tokens
-ID      : [a-zA-Z_][a-zA-Z_0-9]* ;
 INTEGER : [0-9]+ ;
 DOUBLE  : [0-9]+ '.' [0-9]* | '.' [0-9]+ ;
 STRING  : '"' (~["\r\n])* '"' | '\'' (~['\r\n])* '\'' ;
 BOOLEAN : 'True' | 'False' ;
+ID      : [a-zA-Z_][a-zA-Z_0-9]* ;
 
 //assignment operators
 ASSIGN      : '=' ;
