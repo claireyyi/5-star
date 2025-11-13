@@ -43,7 +43,6 @@ ID      : [a-zA-Z_][a-zA-Z_0-9]* ;
 ASSIGN      : '=' ;
 ADD_ASSIGN  : '+=' ;
 MINUS_ASSIGN  : '-=' ;
-SUB_ASSIGN  : '-=' ;
 MUL_ASSIGN  : '*=' ;
 DIV_ASSIGN  : '/=' ;
 
@@ -55,8 +54,5 @@ MOD   : '%' ;
 OVER  : '/' ;
 
 
-//whitespace ignored
-WS     : [ \t]+ -> skip ;
-NEWLINE: [\r\n]+ ;
 
 
