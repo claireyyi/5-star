@@ -7,7 +7,7 @@ COMMENT: '#' ~[\r\n]* -> skip;
 WS: [ \t]+ -> skip;
 
 
-program: (assignment | expression)* EOF;
+program: (assignment | expression | if_statement | block)* EOF;
 
 // assignment 
 assignment:
@@ -53,6 +53,37 @@ TIMES : '*' ;
 MOD   : '%' ;
 OVER  : '/' ;
 
+if_statement : 
+            'if' : condition ':' block
+            ('elif' condition ':' block)* 
+            ('else' : block)? ;
 
+condition: 
+            condition ('and' | 'or') condition     |
+            'not' condition     | expression (LT | LE | GT | GE | EQ | NE) expression     
+            | BOOLEAN     | '(' condition ')'     ;
+
+block: 
+    NEWLINE? INDENT statement+ DEDENT  | statement ;
+
+statement:  assignment | expression | if_statement| block ;
+
+// comparison operators
+LT: '<';
+LE: '<=';
+GT: '>';
+GE: '>=';
+EQ: '==';
+NE: '!=';
+
+// logical
+AND: 'and';
+OR: 'or';
+NOT: 'not';
+
+
+// handles indentation logic
+INDENT: '    ' | '\t';
+DEDENT: ;
 
 
