@@ -2,7 +2,7 @@ grammar FiveStar;
 
 
 //Python-specific tokens
-NEWLINE: '\r'? '\n' -> skip;
+NEWLINE: '\r'? '\n';
 COMMENT: '#' ~[\r\n]* -> skip;
 WS: [ \t]+ -> skip;
 
@@ -54,7 +54,7 @@ MOD   : '%' ;
 OVER  : '/' ;
 
 if_statement : 
-            'if' : condition ':' block
+            'if'  condition ':' block
             ('elif' condition ':' block)* 
             ('else' : block)? ;
 
@@ -64,17 +64,17 @@ condition:
             | BOOLEAN     | '(' condition ')'     ;
 
 block: 
-    NEWLINE? INDENT statement+ DEDENT  | statement ;
+    NEWLINE? INDENT statement+ DEDENT?  | statement ;
 
-statement:  assignment | expression | if_statement| block ;
+statement:  assignment | expression | if_statement ;
 
 // comparison operators
-LT: '<';
-LE: '<=';
-GT: '>';
-GE: '>=';
-EQ: '==';
 NE: '!=';
+EQ: '==';
+LE: '<=';
+GE: '>=';
+LT: '<';
+GT: '>';
 
 // logical
 AND: 'and';
@@ -83,7 +83,7 @@ NOT: 'not';
 
 
 // handles indentation logic
-INDENT: '    ' | '\t';
+INDENT: '    ';
 DEDENT: ;
 
 
