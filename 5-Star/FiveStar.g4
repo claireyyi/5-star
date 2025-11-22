@@ -1,36 +1,31 @@
 grammar FiveStar;
 
-
 //Python-specific tokens
 NEWLINE: '\r'? '\n';
 COMMENT: '#' ~[\r\n]* -> skip;
 WS: [ \t]+ -> skip;
 
-
-program: (assignment | expression | if_statement | block)* EOF;
+program: (statement | NEWLINE)* EOF;
 
 // assignment 
 assignment:
-ID (ASSIGN | ADD_ASSIGN | MINUS_ASSIGN | MUL_ASSIGN | DIV_ASSIGN) expression ;
-
+ID (ASSIGN | ADD_ASSIGN | MINUS_ASSIGN | MUL_ASSIGN | DIV_ASSIGN) expression;
 
 // list
 list:
-'[' (expression (',' expression)*)? (',')? ']'; //trailing commas allowed
+'[' (expression (',' expression)*)? (',')? ']';
 
 expression: expression (TIMES | MOD| OVER) expression |
             expression (PLUS | MINUS) expression | 
             (PLUS | MINUS)? value | '(' expression ')' |
             ID | BOOLEAN | STRING | list;
 
-value //defines all types of atomic values
-: INTEGER
- | DOUBLE
- | STRING
- | BOOLEAN
- | ID
- | list
- ;
+value: INTEGER | DOUBLE | STRING | BOOLEAN | ID | list;
+
+// logical operators 
+AND: 'and';
+OR: 'or';
+NOT: 'not';
 
 //tokens
 INTEGER : [0-9]+ ;
@@ -53,21 +48,6 @@ TIMES : '*' ;
 MOD   : '%' ;
 OVER  : '/' ;
 
-if_statement : 
-            'if'  condition ':' block
-            ('elif' condition ':' block)* 
-            ('else' : block)? ;
-
-condition: 
-            condition ('and' | 'or') condition     |
-            'not' condition     | expression (LT | LE | GT | GE | EQ | NE) expression     
-            | BOOLEAN     | '(' condition ')'     ;
-
-block: 
-    NEWLINE? INDENT statement+ DEDENT?  | statement ;
-
-statement:  assignment | expression | if_statement ;
-
 // comparison operators
 NE: '!=';
 EQ: '==';
@@ -76,14 +56,21 @@ GE: '>=';
 LT: '<';
 GT: '>';
 
-// logical
-AND: 'and';
-OR: 'or';
-NOT: 'not';
+if_statement: 
+    'if' condition ':' NEWLINE? block
+    ('elif' condition ':' NEWLINE? block)* 
+    ('else' ':' NEWLINE? block)? ;
+
+condition: 
+    condition (AND | OR) condition | NOT condition | comparison | '(' condition ')';
+
+comparison: 
+    expression (LT | LE | GT | GE | EQ | NE) expression | BOOLEAN | ID;
+
+block: statement+ ;
 
 
-// handles indentation logic
-INDENT: '    ';
-DEDENT: ;
+statement: 
+    (assignment | expression) NEWLINE | if_statement ;
 
 
