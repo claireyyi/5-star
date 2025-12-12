@@ -1,38 +1,96 @@
+
 grammar FiveStar;
 
-//Python-specific tokens
-NEWLINE: '\r'? '\n';
-COMMENT: '#' ~[\r\n]* -> skip;
-WS: [ \t]+ -> skip;
 
-program: (statement | NEWLINE)* EOF;
+program
+    : statement* EOF
+    ;
 
-// assignment 
+statement
+    : (assignment  | expression) NEWLINE?
+    | while_statement | if_statement
+    | for_statement
+    ;
+
 assignment:
-ID (ASSIGN | ADD_ASSIGN | MINUS_ASSIGN | MUL_ASSIGN | DIV_ASSIGN) expression;
+    ID (ASSIGN | ADD_ASSIGN | MINUS_ASSIGN | MUL_ASSIGN | DIV_ASSIGN) expression
+    ;
+
+
+
+//block statemnts
+
+while_statement
+    : 'while' expression ':' NEWLINE ((TAB+ statement)+)+
+    ;
+
+if_statement
+    : TAB* 'if' expression ':' NEWLINE ((TAB+ statement)+)+
+
+      TAB* ('elif' expression ':' NEWLINE (TAB+ statement)+ )*
+
+      TAB* ('else' ':' NEWLINE ((TAB+ statement)+))?
+    ;
+
+for_statement
+    : 'for' ID 'in' expression ':' NEWLINE ((TAB+ statement)+)+
+    ;
+
+
+expression
+    : function_call
+    |'(' expression ')'| token
+    | list                                     
+    | MINUS expression | 'not' expression  | expression (TIMES | MOD| OVER)  expression  
+    | expression (PLUS | MINUS) expression    
+    | expression (LE | GE | LT | GT) expression 
+    | expression (NE | EQ) expression     
+    | expression 'or' expression | expression 'and' expression             
+    ;
+
+
+function_call
+    : ID '(' (expression (',' expression)*)? ')'
+    ;
 
 // list
 list:
-'[' (expression (',' expression)*)? (',')? ']';
+    '[' (expression (',' expression)*)? (',')? ']'
+    ;
 
-expression: expression (TIMES | MOD| OVER) expression |
-            expression (PLUS | MINUS) expression | 
-            (PLUS | MINUS)? value | '(' expression ')' |
-            ID | BOOLEAN | STRING | list;
 
-value: INTEGER | DOUBLE | STRING | BOOLEAN | ID | list;
+// tokens
+token
+    : INTEGER | STRING | FLOAT| BOOLEAN | ID
+    ;
 
-// logical operators 
-AND: 'and';
-OR: 'or';
-NOT: 'not';
 
-//tokens
-INTEGER : [0-9]+ ;
-DOUBLE  : [0-9]+ '.' [0-9]* | '.' [0-9]+ ;
-STRING  : '"' (~["\r\n])* '"' | '\'' (~['\r\n])* '\'' ;
+// Keywords
+
+//bOOLS
 BOOLEAN : 'True' | 'False' ;
-ID      : [a-zA-Z_][a-zA-Z_0-9]* ;
+
+// Comments 
+MULTILINE_COMMENT
+    : '\'\'\'' ( . | '\r' | '\n' )*? '\'\'\'' NEWLINE* -> skip
+    ;
+
+COMMENT
+    : '#' ~[\r\n]* NEWLINE* -> skip
+    ;
+
+// Literals 
+
+STRING  : '"' (~["\r\n])* '"' | '\'' (~['\r\n])* '\'' ;
+
+
+// Literals 
+FLOAT : [0-9]+ '.' [0-9]+ ; 
+INTEGER   : [0-9]+;
+
+//Identifiers
+ID : [a-zA-Z_] [a-zA-Z_0-9]* ;
+
 
 //assignment operators
 ASSIGN      : '=' ;
@@ -56,21 +114,11 @@ GE: '>=';
 LT: '<';
 GT: '>';
 
-if_statement: 
-    'if' condition ':' NEWLINE? block
-    ('elif' condition ':' NEWLINE? block)* 
-    ('else' ':' NEWLINE? block)? ;
+TAB : '\t';
 
-condition: 
-    condition (AND | OR) condition | NOT condition | comparison | '(' condition ')';
-
-comparison: 
-    expression (LT | LE | GT | GE | EQ | NE) expression | BOOLEAN | ID;
-
-block: statement+ ;
+//new line
+NEWLINE : ('\r'? '\n')+ ;
 
 
-statement: 
-    (assignment | expression) NEWLINE | if_statement ;
-
-
+// Whitespace
+WS : [ ]+ -> skip ;
