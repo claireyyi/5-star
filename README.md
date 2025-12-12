@@ -16,9 +16,10 @@ The goal of this project is to implement a parser for Python language, using Con
 - ANTLR 4
 - ANTLR Python runtime
 
-### 1. Install ANTLR
+### 1. Run the program
+
 macOS:
-```bash
+
 brew install antlr
 
 pip install antlr4-python3-runtime
