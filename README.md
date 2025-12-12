@@ -20,6 +20,7 @@ The goal of this project is to implement a parser for Python language, using Con
 - main.py
 - project_deliverable_3.py
 - FiveStar.g4
+- sample.txt
 
 
 ### 1. Run the program
