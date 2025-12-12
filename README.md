@@ -6,3 +6,23 @@ The goal of this project is to implement a parser for Python language, using Con
 * Claire Yi
 * Amwaj Sabri
 * Enobong Offiong
+
+
+## Setup Instructions
+
+### Requirements
+- Python 3.10+
+- Java 
+- ANTLR 4
+- ANTLR Python runtime
+
+### 1. Install ANTLR
+macOS:
+```bash
+brew install antlr
+
+pip install antlr4-python3-runtime
+
+antlr4 -Dlanguage=Python3 FiveStar.g4
+
+python3 main.py project_deliverable_3.py
