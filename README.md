@@ -16,6 +16,12 @@ The goal of this project is to implement a parser for Python language, using Con
 - ANTLR 4
 - ANTLR Python runtime
 
+### You neeed the follow files to run the program:
+- main.py
+- project_deliverable_3.py
+- FiveStar.g4
+
+
 ### 1. Run the program
 
 macOS:
